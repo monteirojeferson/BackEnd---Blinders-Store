@@ -1,18 +1,17 @@
 package org.projetointegrador.ecommerce.model;
 
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "usuarios")
@@ -20,7 +19,7 @@ public class Usuario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private long idUsuario;
 	
 	@NotNull
 	@Size(min = 5, max = 100)
@@ -34,22 +33,42 @@ public class Usuario {
 	@Size(min = 5)
 	private String senha;
 	
+	@NotNull
+	@Size(min = 11)
+	private String cpf;
+	
 	private String foto;
 	
 	private String tipo;
 	
-	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
-	@JsonIgnoreProperties("usuario")
-	private List<Postagem> postagem;
+	private String email;
+	
+	@ManyToOne
+	@JsonIgnoreProperties("usuarios")
+	private Endereco endereco;
+	
+	
 	
 
-	public long getId() {
-		return id;
+
+
+	public long getIdUsuario() {
+		return idUsuario;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setIdUsuario(long idUsuario) {
+		this.idUsuario = idUsuario;
 	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
+
 
 	public String getNome() {
 		return nome;
@@ -91,12 +110,22 @@ public class Usuario {
 		this.tipo = tipo;
 	}
 
-	public List<Postagem> getPostagem() {
-		return postagem;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setPostagem(List<Postagem> postagem) {
-		this.postagem = postagem;
+	public void setEmail(String email) {
+		this.email = email;
 	}
+	
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	
 	
 }

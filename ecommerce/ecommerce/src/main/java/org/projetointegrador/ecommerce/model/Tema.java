@@ -16,38 +16,52 @@ import com.sun.istack.NotNull;
 @Entity
 @Table(name = "tb_tipo")
 public class Tema {
-	@Id
+
+	@Id	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
 	@NotNull
 	private String descricao;
 	
-	@OneToMany(mappedBy = "tema", cascade = CascadeType.ALL)
+	private long qtd;
+	
+	@OneToMany(mappedBy = "tema", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("tema")
-	private List<Postagem> postagem;
+	private List<Produto> postagem;
 	
 	
-	
-	
+
+	public long getQtd() {
+		return qtd;
+	}
+
+	public void setQtd(long qtd) {
+		this.qtd = qtd;
+	}
+
 	public long getId() {
 		return id;
 	}
+
 	public void setId(long id) {
 		this.id = id;
 	}
+
 	public String getDescricao() {
 		return descricao;
 	}
+
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public List<Postagem> getPostagem() {
+
+	public List<Produto> getPostagem() {
 		return postagem;
 	}
-	public void setPostagem(List<Postagem> postagem) {
+
+	public void setPostagem(List<Produto> postagem) {
 		this.postagem = postagem;
 	}
-	
 	
 }
